@@ -13,7 +13,6 @@ The Video Widget adds videos to your sidebar. Only video Id is required (no HTML
 The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
 
 All video sites: 
-
 * Youtube
 * Dailymotion
 * Google Video
