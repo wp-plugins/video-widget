@@ -49,4 +49,3 @@ Tell me. :)
 == Screenshots ==
 
 1. Admin Panel
-2. Frontend
