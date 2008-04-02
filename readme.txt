@@ -12,26 +12,7 @@ Adds some videos in your sidebar. Most popular video types are accepted (Youtube
 
 Adds some YouTube/Dailymotion/Google... sidebar videos. 
 
-All video types accepted:
-* Youtube
-* Dailymotion
-* Google Video
-* Metacafe			
-* LiveLeak
-* Revver
-* iFilm
-* MySpace
-* Blip.tv
-* CollegeHumor
-* VideoJug
-* GodTube
-* Veoh
-* Break
-* Movieweb
-* Jaycut
-* Myvideo
-* Quicktime
-* Windows media player
+All video types accepted: Youtube, Dailymotion, Google Video, Metacafe, LiveLeak, Revver, iFilm, MySpace, Blip.tv, CollegeHumor, VideoJug, GodTube, Veoh, Break, Movieweb, Jaycut, Myvideo, Quicktime, Windows media player
 
 == Installation ==
 
