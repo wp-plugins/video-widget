@@ -1,7 +1,7 @@
 === Video Widget ===
 Contributors: nikohk
 Donate link: http://www.nikohk.com
-Tags: video, widget
+Tags: video, widget, sidebar
 Requires at least: 2.5
 Tested up to: 2.5
 Stable tag: 1.0
@@ -10,10 +10,9 @@ Adds some videos in your sidebar. Most popular video types are accepted (Youtube
 
 == Description ==
 
-Adds some YouTube/Dailymotion/Google... sidebar videos. 
+The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
 
-All video types accepted: 
-
+All video sites: 
 *   Youtube
 *   Dailymotion
 *   Google Video
@@ -34,6 +33,9 @@ All video types accepted:
 *   Quicktime
 *   Windows media player
 
+For support and further information about the Video Widget plugin see the plugins homepage at [http://www.nikohk.com/plugin-wordpress-video-widget/](http://www.nikohk.com/plugin-wordpress-video-widget/ "Link to Video Widget homepage").
+
+
 == Installation ==
 
 1. Upload `video.php` to the `/wp-content/plugins/` directory
@@ -48,4 +50,4 @@ Tell me. :)
 
 == Screenshots ==
 
-1. Admin Panel
+1. Video Widget Configuration
