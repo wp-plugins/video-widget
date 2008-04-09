@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.0
+Version: 1.1
 Author URI: http://www.nikohk.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
@@ -44,6 +44,9 @@ function widget_video($args, $widget_args = 1) {
 		break;
 		case 'google':
 			$content = widget_video_buildEmbed('http://video.google.com/googleplayer.swf?docId='.$id, $width, $height);
+		break;
+		case 'vimeo':
+			$content = widget_video_buildEmbed('http://www.vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=', $width, $height);
 		break;
 		case 'metacafe':
 			$content = widget_video_buildEmbed('http://www.metacafe.com/fplayer/'.$id.'.swf', $width, $height);
@@ -120,10 +123,15 @@ function widget_video($args, $widget_args = 1) {
 	}
 	
 	$title = ($options[$number]['title'] != "") ? $before_title.$options[$number]['title'].$after_title : "";  // ($options['title'] != "") ? $options['title'] : "Compete Rankings";
-			
+	
+	$textbefore = ($options[$number]['textbefore'] != "") ? '<p class="video_widget_before_video">' . $options[$number]['textbefore'] . '</p>' : ""; 
+	$textafter = ($options[$number]['textafter'] != "") ? '<p class="video_widget_after_video">' . $options[$number]['textafter'] . '</p>' : ""; 
+	
 	echo $before_widget;
 	echo $title;
+	echo $textbefore;
 	echo $content;
+	echo $textafter;
 	echo $after_widget;
 }
 
@@ -174,8 +182,10 @@ function widget_video_control($widget_args)
 			$id = stripslashes( $widget_content['id'] );
 			$width = stripslashes( $widget_content['width'] );
 			$height = stripslashes( $widget_content['height'] );
-						
-			$options[$widget_number] = compact( 'title', 'source', 'id', 'width', 'height');
+			$textbefore = stripslashes( $widget_content['textbefore'] );
+			$textafter = stripslashes( $widget_content['textafter'] );
+			
+			$options[$widget_number] = compact( 'title', 'source', 'id', 'width', 'height', 'textbefore', 'textafter');
 		}
 
 		update_option('widget_video', $options);
@@ -189,6 +199,8 @@ function widget_video_control($widget_args)
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
+		$textbefore = '';
+		$textafter = '';
 	} 
 	else {
 		$title = attribute_escape($options[$number]['title']);
@@ -196,6 +208,8 @@ function widget_video_control($widget_args)
 		$id = $options[$number]['id'];
 		$width = $options[$number]['width'];
 		$height = $options[$number]['height'];
+		$textbefore = $options[$number]['textbefore'];
+		$textafter = $options[$number]['textafter'];
 	}
 ?>
 		<p>
@@ -212,6 +226,7 @@ function widget_video_control($widget_args)
 			$sources['youtube']='Youtube';
 			$sources['dailymotion']='Dailymotion';
 			$sources['google']='Google Video';
+			$sources['vimeo']='Vimeo';			
 			$sources['metacafe']='Metacafe';			
 			$sources['liveleak']='LiveLeak';
 			$sources['revver']='Revver';
@@ -251,6 +266,12 @@ function widget_video_control($widget_args)
 			<label for="video-height-<?php echo $number; ?>">Height (px):</label>
 			<input class="widefat" id="video-height-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][height]" type="text" value="<?php echo $height; ?>" />
 			
+			<label for="video-textbefore-<?php echo $number; ?>">Text before video:</label>
+			<input class="widefat" id="video-textbefore-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][textbefore]" type="text" value="<?php echo $textbefore; ?>" />
+
+			<label for="video-textafter-<?php echo $number; ?>">Text after video:</label>
+			<input class="widefat" id="video-textafter-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][textafter]" type="text" value="<?php echo $textafter; ?>" />
+
 			<input type="hidden" id="video-submit-<?php echo $number; ?>" name="video-submit-<?php echo $number; ?>" value="1" />
 		</p>
 <?php
@@ -271,8 +292,10 @@ function widget_video_register() {
 	$id = false;
 	foreach ( array_keys($options) as $o ) {
 		// Old widgets can have null values for some reason
-		if ( !isset($options[$o]['title']) || !isset($options[$o]['source'])  || !isset($options[$o]['id'])  || !isset($options[$o]['width'])  || !isset($options[$o]['height']) )
-			continue;
+		if ( !isset($options[$o]['title']) || !isset($options[$o]['source'])  || !isset($options[$o]['id'])  || !isset($options[$o]['width'])  || !isset($options[$o]['height'])  || !isset($options[$o]['textbefore'])  || !isset($options[$o]['textafter']) )
+		{
+			//continue;		
+		}
 		$id = "video-$o"; // Never never never translate an id
 		wp_register_sidebar_widget($id, $name, 'widget_video', $widget_ops, array( 'number' => $o ));
 		wp_register_widget_control($id, $name, 'widget_video_control', $control_ops, array( 'number' => $o ));
