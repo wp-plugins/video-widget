@@ -20,7 +20,7 @@ For support and further information about the Video Widget plugin see the plugin
 
 = WHAT'S NEW? =
 
-* **1.2 (2008-04-10)** : Flickr, Clipfish, Viddler, Gametrailers, Snotr support.
+* **1.1.1 (2008-04-10)** : Flickr, Clipfish, Viddler, Gametrailers, Snotr support.
 * **1.1 (2008-04-08)** : Vimeo support, text to add before and after video.
 * **1.0 (2008-03-31)** : Initial version.
 
