@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://www.nikohk.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
@@ -105,6 +105,9 @@ function widget_video($args, $widget_args = 1) {
 		case 'snotr':
 			$content = widget_video_buildEmbed('http://videos.snotr.com/player.swf?video='.$id.'&amp;embedded=true&amp;autoplay=false', $width, $height);
 		break;
+        case 'taratata':
+            $content = widget_video_buildEmbed('http://video.mytaratata.com/p/fr/'.$id.'.html', $width, $height);
+        break;		
 		case 'quicktime':
 			$content='<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab" width="'.$width.'" height="'.$height.'">';
 			$content.='<param name="src" value="'.$id.'" />';
@@ -261,6 +264,7 @@ function widget_video_control($widget_args)
 			$sources['viddler']='Viddler';
 			$sources['gametrailers']='Gametrailers';
 			$sources['snotr']='Snotr';			
+			$sources['taratata']='Taratata';			
 			$sources['quicktime']='Quicktime';
 			$sources['windowsmedia']='Windows media player';
 		
