@@ -5,11 +5,11 @@ Requires at least: 2.5
 Tested up to: 2.5
 Stable tag: 1.1.2
 
-Add 25 different types of video in your sidebar. Only video Id is required (no HTML code to paste).
+Add more than 25 different types of video in your sidebar. Only video Id is required (no HTML code to paste).
 
 == Description ==
 
-Add 25 different types of video in your sidebar. Only video Id is required (no HTML code to paste).
+Add more than different types of video in your sidebar. Only video Id is required (no HTML code to paste).
 
 All accepted video sources: 
 * Youtube
