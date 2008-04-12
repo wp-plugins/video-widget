@@ -12,7 +12,32 @@ The Video Widget adds videos to your sidebar. Only video Id is required (no HTML
 The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
 
 All accepted video sources: 
-Youtube, Dailymotion, Google Video, Vimeo, Flickr, Metacafe, LiveLeak, Revver, iFilm, MySpace, Blip.tv, CollegeHumor, VideoJug, GodTube, Veoh, Break, Movieweb, Jaycut, Myvideo, Clipfish, Viddler, Gametrailers, Snotr, Taratata, Quicktime, Windows media player
+* Youtube
+* Dailymotion
+* Google Video
+* Vimeo
+* Flickr
+* Metacafe
+* LiveLeak
+* Revver
+* iFilm
+* MySpace
+* Blip.tv
+* CollegeHumor
+* VideoJug
+* GodTube
+* Veoh
+* Break
+* Movieweb
+* Jaycut
+* Myvideo
+* Clipfish
+* Viddler
+* Gametrailers
+* Snotr
+* Taratata
+* Quicktime
+* Windows media player
 
 This plugin is based on [Executable PHP widget](http://wordpress.org/extend/plugins/php-code-widget/ "Link to Executable PHP widget homepage") for multiples widgets, [YouTube widget](http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget "Link to YouTube widget homepage") for the idea and [Video Embedder](http://www.gate303.net/2007/12/17/video-embedder "Link to Video Embedder homepage") for the video html library.
 
