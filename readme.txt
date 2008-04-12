@@ -12,6 +12,7 @@ Add more than 25 types of video in your sidebar. Only video Id is required (no H
 Add more than 25 types of video in your sidebar. Only video Id is required (no HTML code to paste).
 
 All accepted video sources: 
+
 * Youtube
 * Dailymotion
 * Google Video
