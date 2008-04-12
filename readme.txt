@@ -5,7 +5,7 @@ Requires at least: 2.5
 Tested up to: 2.5
 Stable tag: 1.1
 
-The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste). test
+The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
 
 == Description ==
 
