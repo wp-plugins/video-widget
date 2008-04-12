@@ -5,11 +5,11 @@ Requires at least: 2.5
 Tested up to: 2.5
 Stable tag: 1.1.2
 
-The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
+Add 25 different types of videos in your sidebar. Only video Id is required (no HTML code to paste).
 
 == Description ==
 
-The Video Widget adds videos to your sidebar. Only video Id is required (no HTML code to paste).
+Add 25 different types of videos in your sidebar. Only video Id is required (no HTML code to paste).
 
 All accepted video sources: 
 * Youtube
