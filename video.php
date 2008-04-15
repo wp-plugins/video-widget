@@ -51,42 +51,6 @@ function widget_video($args, $widget_args = 1) {
 		case 'flickr':
 			$content = widget_video_buildEmbed('http://www.flickr.com/apps/video/stewart.swf?photo_id='.$id, $width, $height);
 		break;
-		case 'flv':
-			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/mediaplayer.swf';		
-			$content='<object type="application/x-shockwave-flash" data="'.$flvplayerUrl.'?file='.$id.'" autoStart="false" allowfullscreen="true" width="'.$width.'" height="'.$height.'">';
-			$content.='<param name="movie" value="'.$flvplayerUrl.'?file='.$id.'" />';
-			$content.='</object>';
-		break;
-		case 'quicktime':
-			$content='<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab" width="'.$width.'" height="'.$height.'">';
-			$content.='<param name="src" value="'.$id.'" />';
-			$content.='<param name="controller" value="true" />';
-			$content.='<param name="autoplay" value="false" />';
-			$content.='<param name="scale" value="aspect" />';
-			$content.='<object type="video/quicktime" data="'.$id.'" width="'.$width.'" height="'.$height.'">'."\n";
-			$content.='<param name="autoplay" value="false" />';
-		 	$content.='<param name="controller" value="true" />';
-			$content.='<param name="scale" value="aspect" />';
-			$content.='</object>';
-			$content.='</object>';
-		break;
-		case 'windowsmedia':
-			$content='<object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="player" width="'.$width.'" height="'.$height.'">'."\n";
-			$content.='<param name="url" value="'.$id.'" />'."\n";
-			$content.='<param name="src" value="'.$id.'" />'."\n";
-			$content.='<param name="showcontrols" value="true" />'."\n";
-			$content.='<param name="autostart" value="false" />'."\n";
-			$content.='<param name="stretchtofit" value="true" />'."\n";
-			$content.='<!--[if !IE]>-->'."\n";
-			$content.='<object type="video/x-ms-wmv" data="'.$id.'" width="'.$width.'" height="'.$height.'">'."\n";
-			$content.='<param name="src" value="'.$id.'" />'."\n";
-			$content.='<param name="autostart" value="false" />'."\n";
-			$content.='<param name="controller" value="false" />'."\n";
-			$content.='<param name="stretchtofit" value="true" />'."\n";
-			$content.='</object>'."\n";
-			$content.='<!--<![endif]-->'."\n";
-			$content.='</object>'."\n";
-		break;
 		case 'metacafe':
 			$content = widget_video_buildEmbed('http://www.metacafe.com/fplayer/'.$id.'.swf', $width, $height);
 		break;
@@ -144,6 +108,36 @@ function widget_video($args, $widget_args = 1) {
         case 'taratata':
             $content = widget_video_buildEmbed('http://video.mytaratata.com/p/fr/'.$id.'.html', $width, $height);
         break;		
+		case 'quicktime':
+			$content='<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab" width="'.$width.'" height="'.$height.'">';
+			$content.='<param name="src" value="'.$id.'" />';
+			$content.='<param name="controller" value="true" />';
+			$content.='<param name="autoplay" value="false" />';
+			$content.='<param name="scale" value="aspect" />';
+			$content.='<object type="video/quicktime" data="'.$id.'" width="'.$width.'" height="'.$height.'">'."\n";
+			$content.='<param name="autoplay" value="false" />';
+		 	$content.='<param name="controller" value="true" />';
+			$content.='<param name="scale" value="aspect" />';
+			$content.='</object>';
+			$content.='</object>';
+		break;
+		case 'windowsmedia':
+			$content='<object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="player" width="'.$width.'" height="'.$height.'">'."\n";
+			$content.='<param name="url" value="'.$id.'" />'."\n";
+			$content.='<param name="src" value="'.$id.'" />'."\n";
+			$content.='<param name="showcontrols" value="true" />'."\n";
+			$content.='<param name="autostart" value="false" />'."\n";
+			$content.='<param name="stretchtofit" value="true" />'."\n";
+			$content.='<!--[if !IE]>-->'."\n";
+			$content.='<object type="video/x-ms-wmv" data="'.$id.'" width="'.$width.'" height="'.$height.'">'."\n";
+			$content.='<param name="src" value="'.$id.'" />'."\n";
+			$content.='<param name="autostart" value="false" />'."\n";
+			$content.='<param name="controller" value="false" />'."\n";
+			$content.='<param name="stretchtofit" value="true" />'."\n";
+			$content.='</object>'."\n";
+			$content.='<!--<![endif]-->'."\n";
+			$content.='</object>'."\n";
+		break;
 	}
 	
 	$title = ($options[$number]['title'] != "") ? $before_title.$options[$number]['title'].$after_title : "";  
@@ -252,9 +246,6 @@ function widget_video_control($widget_args)
 			$sources['google']='Google Video';
 			$sources['vimeo']='Vimeo';			
 			$sources['flickr']='Flickr';			
-			$sources['flv']='Flv (Flash Video)';			
-			$sources['quicktime']='Quicktime';
-			$sources['windowsmedia']='Windows media player';
 			$sources['metacafe']='Metacafe';			
 			$sources['liveleak']='LiveLeak';
 			$sources['revver']='Revver';
@@ -274,6 +265,8 @@ function widget_video_control($widget_args)
 			$sources['gametrailers']='Gametrailers';
 			$sources['snotr']='Snotr';			
 			$sources['taratata']='Taratata';			
+			$sources['quicktime']='Quicktime';
+			$sources['windowsmedia']='Windows media player';
 		
 	 		foreach ($sources as $key => $value)
 			{

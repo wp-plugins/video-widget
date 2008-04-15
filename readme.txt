@@ -25,7 +25,6 @@ All accepted video sources:
 * Google Video
 * Vimeo
 * Flickr
-* Flv
 * Metacafe
 * LiveLeak
 * Revver
