@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.1.3
+Version: 1.1.2
 Author URI: http://www.nikohk.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
