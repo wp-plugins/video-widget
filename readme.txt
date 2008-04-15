@@ -54,7 +54,7 @@ For support and further information about the Video Widget plugin see the plugin
 
 == Installation ==
 
-1. Upload video-widget folder (with all plugin files inside to the `/wp-content/plugins/` directory). Then you must have `/wp-content/plugins/video-widget/` directory, with all files (video.php and mediaplayer.swf) inside..
+1. Upload `video.php` to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Use the widget like any other widget.
 
