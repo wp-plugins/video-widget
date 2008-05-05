@@ -13,7 +13,7 @@ Add more than 25 types of video in your sidebar. Only video Id is required (no H
 
 = WHAT'S NEW? =
 
-* **1.1.3 (2008-04-15)** : Flv video support with embedded flv player in plugin. **Be careful** : the plugin **must be** copied in video-widget folder now. No more in root plugin folder. **See [Installation notes](http://wordpress.org/extend/plugins/video-widget/installation/ "Link to Installation notes")** for more details.
+* **1.1.3 (2008-05-05)** : Flv video support. IMPORTANT: be sure that the plugin files are located in wp-content/plugins/video-widget directory. See [Installation Instructions](http://wordpress.org/extend/plugins/video-widget/installation/ "Link to Installation Instructions") .
 * **1.1.2 (2008-04-11)** : Taratata video support.
 * **1.1.1 (2008-04-10)** : Flickr, Clipfish, Viddler, Gametrailers, Snotr support.
 * **1.1 (2008-04-08)** : Vimeo support, text to add before and after video.
@@ -24,9 +24,9 @@ All accepted video sources:
 * Youtube
 * Dailymotion
 * Google Video
+* Flv
 * Vimeo
 * Flickr
-* Flv
 * Metacafe
 * LiveLeak
 * Revver
@@ -55,7 +55,8 @@ For support and further information about the Video Widget plugin see the plugin
 
 == Installation ==
 
-1. Upload video-widget folder (with all plugin files inside to the `/wp-content/plugins/` directory). Then you must have `/wp-content/plugins/video-widget/` directory, with all files (video.php and mediaplayer.swf) inside..
+1. Download the plugin
+1. Upload the `video-widget` folder to the `/wp-content/plugins/` folder
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Use the widget like any other widget.
 
