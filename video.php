@@ -39,7 +39,7 @@ function widget_video($args, $widget_args = 1) {
 	
 	if (!empty($idlist))
 	{
-		$videos = explode(";", $idlist);
+		$videos = explode(";", rtrim($idlist,";"));
 		$selectedVideo =  $videos[rand(0,count($videos)-1)];
 		$videoInfos = explode(":", $selectedVideo);
 		$type = strtolower(trim($videoInfos[0]));
@@ -237,7 +237,8 @@ function widget_video_control($widget_args)
 		$title = 'my video';
 		$source = 'youtube';
 		$id = 'FsrN3qxX2Yw';
-		$idlist = 'youtube:FsrN3qxX2Yw;dailymotion:x2pjo1';
+		$idlist = 'youtube:FsrN3qxX2Yw;
+dailymotion:x2pjo1';
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
