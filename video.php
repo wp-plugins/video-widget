@@ -44,8 +44,9 @@ function widget_video($args, $widget_args = 1) {
 		$videoInfos = explode(":", $selectedVideo);
 		$type = strtolower(trim($videoInfos[0]));
 		$id = trim($videoInfos[1]);
-		$textbefore = trim($videoInfos[2]);
-		$textafter = trim($videoInfos[3]);
+
+		$textbefore = ($videoInfos[2] != "") ? '<p class="video_widget_before_video">' . trim($videoInfos[2]) . '</p>' : ""; 
+		$textafter = ($videoInfos[3] != "") ? '<p class="video_widget_after_video">' . trim($videoInfos[3]) . '</p>' : ""; 
 	}
 	
 	$width = $options[$number]['width'];
