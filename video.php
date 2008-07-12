@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.1.3
+Version: 1.2
 Author URI: http://www.nikohk.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
@@ -30,11 +30,29 @@ function widget_video($args, $widget_args = 1) {
 		return;
 
 	$id = $options[$number]['id'];
+	$idlist = $options[$number]['idlist'];
+	
+	$type = $options[$number]['source'];
+	
+	$textbefore = ($options[$number]['textbefore'] != "") ? '<p class="video_widget_before_video">' . $options[$number]['textbefore'] . '</p>' : ""; 
+	$textafter = ($options[$number]['textafter'] != "") ? '<p class="video_widget_after_video">' . $options[$number]['textafter'] . '</p>' : ""; 
+	
+	if (!empty($idlist))
+	{
+		$videos = explode(";", $idlist);
+		$selectedVideo =  $videos[rand(0,count($videos)-1)];
+		$videoInfos = explode(":", $selectedVideo);
+		$type = strtolower(trim($videoInfos[0]));
+		$id = trim($videoInfos[1]);
+		$textbefore = trim($videoInfos[2]);
+		$textafter = trim($videoInfos[3]);
+	}
+	
 	$width = $options[$number]['width'];
 	$height = $options[$number]['height'];
 	
 	$code = '';
-	switch ($options[$number]['source'])
+	switch ($type)
 	{
 		case 'youtube':
 			$content = widget_video_buildEmbed('http://www.youtube.com/v/'.$id, $width, $height);
@@ -148,9 +166,6 @@ function widget_video($args, $widget_args = 1) {
 	
 	$title = ($options[$number]['title'] != "") ? $before_title.$options[$number]['title'].$after_title : "";  
 	
-	$textbefore = ($options[$number]['textbefore'] != "") ? '<p class="video_widget_before_video">' . $options[$number]['textbefore'] . '</p>' : ""; 
-	$textafter = ($options[$number]['textafter'] != "") ? '<p class="video_widget_after_video">' . $options[$number]['textafter'] . '</p>' : ""; 
-	
 	echo $before_widget;
 	echo $title;
 	echo $textbefore;
@@ -204,12 +219,13 @@ function widget_video_control($widget_args)
 			$title = strip_tags(stripslashes($widget_content['title']));
 			$source = stripslashes( $widget_content['source'] );
 			$id = stripslashes( $widget_content['id'] );
+			$idlist = stripslashes( $widget_content['idlist'] );
 			$width = stripslashes( $widget_content['width'] );
 			$height = stripslashes( $widget_content['height'] );
 			$textbefore = stripslashes( $widget_content['textbefore'] );
 			$textafter = stripslashes( $widget_content['textafter'] );
 			
-			$options[$widget_number] = compact( 'title', 'source', 'id', 'width', 'height', 'textbefore', 'textafter');
+			$options[$widget_number] = compact( 'title', 'source', 'id', 'idlist', 'width', 'height', 'textbefore', 'textafter');
 		}
 
 		update_option('widget_video', $options);
@@ -220,6 +236,7 @@ function widget_video_control($widget_args)
 		$title = 'my video';
 		$source = 'youtube';
 		$id = 'FsrN3qxX2Yw';
+		$idlist = 'youtube:FsrN3qxX2Yw;dailymotion:x2pjo1';
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
@@ -230,6 +247,7 @@ function widget_video_control($widget_args)
 		$title = attribute_escape($options[$number]['title']);
 		$source = $options[$number]['source'];
 		$id = $options[$number]['id'];
+		$idlist = $options[$number]['idlist'];
 		$width = $options[$number]['width'];
 		$height = $options[$number]['height'];
 		$textbefore = $options[$number]['textbefore'];
@@ -289,8 +307,11 @@ function widget_video_control($widget_args)
 			
 			<label for="video-id-<?php echo $number; ?>">ID:</label>
 			<input class="widefat" id="video-id-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][id]" type="text" value="<?php echo $id; ?>" />
-			(Not sure about video ID? Have a look on <a href="http://www.nikohk.com/plugin-wordpress-video-widget/" title="Video Widget Plugin">Video Widget Plugin</a> documentation)
+			<label for="video-idlist-<?php echo $number; ?>">or ID list (for random display):</label>
+			<textarea class="widefat" id="video-idlist-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][idlist]" rows="5"><?php echo $idlist; ?></textarea>
+			(Not sure about video (list) ID ? Have a look on <a href="http://www.nikohk.com/plugin-wordpress-video-widget/" title="Video Widget Plugin">Video Widget Plugin</a> documentation)
 			<br /><br />
+
 			<label for="video-width-<?php echo $number; ?>">Width (px):</label>
 			<input class="widefat" id="video-width-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][width]" type="text" value="<?php echo $width; ?>" />
 			
@@ -323,7 +344,7 @@ function widget_video_register() {
 	$id = false;
 	foreach ( array_keys($options) as $o ) {
 		// Old widgets can have null values for some reason
-		if ( !isset($options[$o]['title']) || !isset($options[$o]['source'])  || !isset($options[$o]['id'])  || !isset($options[$o]['width'])  || !isset($options[$o]['height'])  || !isset($options[$o]['textbefore'])  || !isset($options[$o]['textafter']) )
+		if ( !isset($options[$o]['title']) || !isset($options[$o]['source'])  || !isset($options[$o]['id'])  || !isset($options[$o]['idlist'])  || !isset($options[$o]['width'])  || !isset($options[$o]['height'])  || !isset($options[$o]['textbefore'])  || !isset($options[$o]['textafter']) )
 		{
 			//continue;		
 		}
