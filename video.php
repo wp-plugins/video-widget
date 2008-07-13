@@ -39,7 +39,7 @@ function widget_video($args, $widget_args = 1) {
 	
 	if (!empty($idlist))
 	{
-		$videos = explode(";", $idlist);
+		$videos = explode(";", rtrim($idlist,";"));
 		$selectedVideo =  $videos[rand(0,count($videos)-1)];
 		$videoInfos = explode(":", $selectedVideo);
 		$type = strtolower(trim($videoInfos[0]));
@@ -237,7 +237,8 @@ function widget_video_control($widget_args)
 		$title = 'my video';
 		$source = 'youtube';
 		$id = 'FsrN3qxX2Yw';
-		$idlist = 'youtube:FsrN3qxX2Yw;dailymotion:x2pjo1';
+		$idlist = 'youtube:FsrN3qxX2Yw;
+dailymotion:x2pjo1';
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
@@ -261,6 +262,20 @@ function widget_video_control($widget_args)
 			<label for="video-title-<?php echo $number; ?>">Title:</label>
 			<input class="widefat" id="video-title-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][title]" type="text" value="<?php echo $title; ?>" />
 			
+			<label for="video-width-<?php echo $number; ?>">Width (px):</label>
+			<input class="widefat" id="video-width-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][width]" type="text" value="<?php echo $width; ?>" />
+			
+			<label for="video-height-<?php echo $number; ?>">Height (px):</label>
+			<input class="widefat" id="video-height-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][height]" type="text" value="<?php echo $height; ?>" />
+			
+			<br /><br />
+			(Multiple videos)<br />	
+			<label for="video-idlist-<?php echo $number; ?>">ID list (for random display):</label>
+			<textarea class="widefat" id="video-idlist-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][idlist]" rows="5"><?php echo $idlist; ?></textarea>
+			(Not sure about video (list) ID ? Have a look on <a href="http://www.nikohk.com/plugin-wordpress-video-widget/" title="Video Widget Plugin">Video Widget Plugin</a> documentation)
+			<br /><br />
+
+			(OR single video)<br />
 			<label for="video-source-<?php echo $number; ?>">Source:</label>
 			<select class="widefat" name="widget-video[<?php echo $number; ?>][source]" id="video-source-<?php echo $number; ?>">
 			<?php
@@ -308,17 +323,7 @@ function widget_video_control($widget_args)
 			
 			<label for="video-id-<?php echo $number; ?>">ID:</label>
 			<input class="widefat" id="video-id-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][id]" type="text" value="<?php echo $id; ?>" />
-			<label for="video-idlist-<?php echo $number; ?>">or ID list (for random display):</label>
-			<textarea class="widefat" id="video-idlist-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][idlist]" rows="5"><?php echo $idlist; ?></textarea>
-			(Not sure about video (list) ID ? Have a look on <a href="http://www.nikohk.com/plugin-wordpress-video-widget/" title="Video Widget Plugin">Video Widget Plugin</a> documentation)
-			<br /><br />
 
-			<label for="video-width-<?php echo $number; ?>">Width (px):</label>
-			<input class="widefat" id="video-width-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][width]" type="text" value="<?php echo $width; ?>" />
-			
-			<label for="video-height-<?php echo $number; ?>">Height (px):</label>
-			<input class="widefat" id="video-height-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][height]" type="text" value="<?php echo $height; ?>" />
-			
 			<label for="video-textbefore-<?php echo $number; ?>">Text before video:</label>
 			<input class="widefat" id="video-textbefore-<?php echo $number; ?>" name="widget-video[<?php echo $number; ?>][textbefore]" type="text" value="<?php echo $textbefore; ?>" />
 
