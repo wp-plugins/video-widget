@@ -63,9 +63,18 @@ For support and further information about the Video Widget plugin see the plugin
 
 == Frequently Asked Questions ==
 
-= And the others videos =
+= And the others video types ? =
 
 Tell me. :)
+
+= Is it possibile to add more video on the same widget so I can show to my visitor a random videos every time they refresh or return on my blog? =
+
+Yes! Since the 1.2 version. 
+Like that : 
+type:id:text1:text2;
+type:id:text1:text2;
+type:id:text1:text2
+...
 
 == Screenshots ==
 
