@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.2
+Version: 1.2.1
 Author URI: http://www.nikohk.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
@@ -41,9 +41,10 @@ function widget_video($args, $widget_args = 1) {
 	{
 		$videos = explode(";", rtrim($idlist,";"));
 		$selectedVideo =  $videos[rand(0,count($videos)-1)];
+		$selectedVideo = str_replace("http://", "http//", $selectedVideo);
 		$videoInfos = explode(":", $selectedVideo);
 		$type = strtolower(trim($videoInfos[0]));
-		$id = trim($videoInfos[1]);
+		$id = trim(str_replace("http//", "http://", $videoInfos[1]));
 
 		$textbefore = ($videoInfos[2] != "") ? '<p class="video_widget_before_video">' . trim($videoInfos[2]) . '</p>' : ""; 
 		$textafter = ($videoInfos[3] != "") ? '<p class="video_widget_after_video">' . trim($videoInfos[3]) . '</p>' : ""; 
@@ -51,6 +52,7 @@ function widget_video($args, $widget_args = 1) {
 	
 	$width = $options[$number]['width'];
 	$height = $options[$number]['height'];
+	
 	
 	$code = '';
 	switch ($type)
@@ -65,9 +67,11 @@ function widget_video($args, $widget_args = 1) {
 			$content = widget_video_buildEmbed('http://video.google.com/googleplayer.swf?docId='.$id, $width, $height);
 		break;
 		case 'flv':
-			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/mediaplayer.swf';		
+		
+			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/player.swf';		
 			$content='<object type="application/x-shockwave-flash" data="'.$flvplayerUrl.'?file='.$id.'" autoStart="false" allowfullscreen="true" width="'.$width.'" height="'.$height.'">';
-			$content.='<param name="movie" value="'.$flvplayerUrl.'?file='.$id.'" />';
+			$content.='<param name="movie" value="'.$flvplayerUrl.'" />';
+			$content.='<embed src="'.$id.'" type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'"></embed>';
 			$content.='</object>';
 		break;
 		case 'vimeo':

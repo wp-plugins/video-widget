@@ -2,8 +2,8 @@
 Contributors: nikohk
 Tags: video, widget, sidebar
 Requires at least: 2.5
-Tested up to: 2.5.1
-Stable tag: 1.2
+Tested up to: 2.6.2
+Stable tag: 1.2.1
 
 Add more than 25 types of video in your sidebar. Only video Id is required (no HTML code to paste).
 
@@ -13,6 +13,7 @@ Add more than 25 types of video in your sidebar. Only video Id is required (no H
 
 = WHAT'S NEW? =
 
+* **1.2.1 (2008-09-23)** : Debug Random video for Http formats : flv, windowsmedia, quicktime.
 * **1.2 (2008-07-12)** : Random video from your selected list. Great.
 * **1.1.3 (2008-05-05)** : Flv video support. IMPORTANT: be sure that the plugin files are located in wp-content/plugins/video-widget directory. See [Installation Instructions](http://wordpress.org/extend/plugins/video-widget/installation/ "Link to Installation Instructions") .
 * **1.1.2 (2008-04-11)** : Taratata video support.
@@ -67,7 +68,7 @@ For support and further information about the Video Widget plugin see the plugin
 
 Tell me. :)
 
-= Is it possibile to add more video on the same widget so I can show to my visitor a random videos every time they refresh or return on my blog? =
+= Is it possible to add more video on the same widget so I can show to my visitor a random videos every time they refresh or return on my blog? =
 
 Yes! Since the 1.2 version. 
 Like that : 
@@ -76,6 +77,8 @@ type:id:text1:text2;
 type:id:text1:text2
 ...
 
+With available types : youtube, dailymotion, google, flv, vimeo, flickr, metacafe, liveleak, revver, ifilm, myspace, bliptv, collegehumor, videojug, godtube, veoh, break, movieweb, jaycut, myvideo, clipfish, viddler, gametrailers, snotr, taratata, quicktime, windowsmedia.
+	
 == Screenshots ==
 
 1. Video Widget Configuration
