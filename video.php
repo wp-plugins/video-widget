@@ -251,11 +251,10 @@ function wp_widget_video_control($widget_args)
 	}
 
 	if ( -1 == $number ) {
-		$title = 'my video';
+		$title = 'video title';
 		$source = 'youtube';
-		$id = 'FsrN3qxX2Yw';
-		$idlist = 'youtube:FsrN3qxX2Yw;
-dailymotion:x2pjo1';
+		$id = '';
+		$idlist = '';
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
