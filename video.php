@@ -67,11 +67,9 @@ function widget_video($args, $widget_args = 1) {
 			$content = widget_video_buildEmbed('http://video.google.com/googleplayer.swf?docId='.$id, $width, $height);
 		break;
 		case 'flv':
-		
-			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/player.swf';		
+			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/mediaplayer.swf';		
 			$content='<object type="application/x-shockwave-flash" data="'.$flvplayerUrl.'?file='.$id.'" autoStart="false" allowfullscreen="true" width="'.$width.'" height="'.$height.'">';
-			$content.='<param name="movie" value="'.$flvplayerUrl.'" />';
-			$content.='<embed src="'.$id.'" type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'"></embed>';
+			$content.='<param name="movie" value="'.$flvplayerUrl.'?file='.$id.'" />';
 			$content.='</object>';
 		break;
 		case 'vimeo':
