@@ -3,7 +3,7 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.2.2
+Version: 1.2.3
 Author URI: http://www.nikodev.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
@@ -58,7 +58,7 @@ function wp_widget_video($args, $widget_args = 1) {
 	switch ($type)
 	{
 		case 'youtube':
-			$content = wp_widget_video_buildEmbed('http://www.youtube.com/v/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.youtube.com/v/'.$id.'&rel=0', $width, $height);
 		break;	
 		case 'dailymotion':
 			$content = wp_widget_video_buildEmbed('http://www.dailymotion.com/swf/'.$id, $width, $height);
@@ -179,6 +179,9 @@ function wp_widget_video($args, $widget_args = 1) {
 			$content.='</object>'."\n";
 			$content.='<!--<![endif]-->'."\n";
 			$content.='</object>'."\n";
+		break;			
+		case 'schooltube' :
+                        $content = wp_widget_video_buildEmbed('http://www.schooltube.com/v/'.$id, $width, $height); 
 		break;
 	}
 	
@@ -326,6 +329,7 @@ function wp_widget_video_control($widget_args)
 			$sources['mtvmusic']='Mtv Music';			
 			$sources['quicktime']='Quicktime';
 			$sources['windowsmedia']='Windows media player';
+			$sources['schooltube']='SchoolTube';
                         ksort($sources);
                         
 	 		foreach ($sources as $key => $value)

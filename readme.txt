@@ -2,8 +2,8 @@
 Contributors: nikohk
 Tags: video, widget, sidebar
 Requires at least: 2.5
-Tested up to: 2.6.3
-Stable tag: 1.2.2
+Tested up to: 2.7
+Stable tag: 1.2.3
 
 Add more than 25 types of video in your sidebar. Only video Id is required (no HTML code to paste).
 
@@ -13,6 +13,7 @@ Add more than 25 types of video in your sidebar. Only video Id is required (no H
 
 = WHAT'S NEW? =
 
+* **1.2.3 (2008-12-20)** : Youtube Related Videos are now hidden on player mouseover, SchoolTube videos support. And Merry Christmas :) .
 * **1.2.2 (2008-11-12)** : Some fixes (block panel, html link, flv IE support), Mtv Music & Espn support, video list alphabetic order.
 * **1.2.1 (2008-09-23)** : Debug Random video for Http formats : flv, windowsmedia, quicktime.
 * **1.2 (2008-07-12)** : Random video from your selected list. Great.
@@ -58,6 +59,7 @@ All accepted video sources:
 * Mtv Music
 * Quicktime
 * Windows media player
+* SchoolTube
 
 This plugin is based on [Executable PHP widget](http://wordpress.org/extend/plugins/php-code-widget/ "Link to Executable PHP widget homepage") for multiples widgets, [YouTube widget](http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget "Link to YouTube widget homepage") for the idea and [Video Embedder](http://www.gate303.net/2007/12/17/video-embedder "Link to Video Embedder homepage") for the video html library.
 
