@@ -3,8 +3,8 @@
 Plugin Name: Video widget
 Description: Adds some YouTube/Dailymotion/Google... sidebar videos. This plugin is based on <a href="http://wordpress.org/extend/plugins/php-code-widget/" title="Executable PHP widget">Executable PHP widget</a> for multiples widgets, <a href="http://nothingoutoftheordinary.com/2007/05/31/wordpress-youtube-widget/" title="YouTube widget">YouTube widget</a> for the idea and <a href="http://www.gate303.net/2007/12/17/video-embedder/" title="Video Embedder">Video Embedder</a> for the video html library.
 Author: nikohk
-Version: 1.2.1
-Author URI: http://www.nikohk.com
+Version: 1.2.3
+Author URI: http://www.nikodev.com
 Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
 */
 /*
@@ -18,7 +18,7 @@ Plugin URI: http://www.nikohk.com/plugin-wordpress-video-widget/
     GNU General Public License for more details.
 */
 
-function widget_video($args, $widget_args = 1) {
+function wp_widget_video($args, $widget_args = 1) {
 	extract( $args, EXTR_SKIP );
 	if ( is_numeric($widget_args) )
 		$widget_args = array( 'number' => $widget_args );
@@ -58,97 +58,110 @@ function widget_video($args, $widget_args = 1) {
 	switch ($type)
 	{
 		case 'youtube':
-			$content = widget_video_buildEmbed('http://www.youtube.com/v/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.youtube.com/v/'.$id.'&rel=0', $width, $height);
 		break;	
 		case 'dailymotion':
-			$content = widget_video_buildEmbed('http://www.dailymotion.com/swf/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.dailymotion.com/swf/'.$id, $width, $height);
 		break;
 		case 'google':
-			$content = widget_video_buildEmbed('http://video.google.com/googleplayer.swf?docId='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://video.google.com/googleplayer.swf?docId='.$id, $width, $height);
 		break;
 		case 'flv':
-		
-			$flvplayerUrl = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/player.swf';		
-			$content='<object type="application/x-shockwave-flash" data="'.$flvplayerUrl.'?file='.$id.'" autoStart="false" allowfullscreen="true" width="'.$width.'" height="'.$height.'">';
-			$content.='<param name="movie" value="'.$flvplayerUrl.'" />';
-			$content.='<embed src="'.$id.'" type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'"></embed>';
-			$content.='</object>';
+			$randomContainerId = rand(0,1000);
+			$videoWidgetFolder = get_bloginfo('wpurl').'/wp-content/plugins/video-widget/';
+			$content='<div id="container'.$randomContainerId.'"><a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.</div>';
+			$content.='<script type="text/javascript" src="'.$videoWidgetFolder.'swfobject.js"></script>';
+			$content.='<script type="text/javascript">
+				var s1 = new SWFObject("'.$videoWidgetFolder.'player.swf","ply","'.$width.'","'.$height.'","9","#FFFFFF");
+				s1.addParam("allowfullscreen","true");
+				s1.addParam("allowscriptaccess","always");
+				s1.addParam("flashvars","file='.$id.'");
+				s1.write("container'.$randomContainerId.'");
+			</script>';
+			
 		break;
 		case 'vimeo':
-			$content = widget_video_buildEmbed('http://www.vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.vimeo.com/moogaloop.swf?clip_id='.$id.'&amp;server=www.vimeo.com&amp;fullscreen=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=', $width, $height);
 		break;
 		case 'flickr':
-			$content = widget_video_buildEmbed('http://www.flickr.com/apps/video/stewart.swf?photo_id='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.flickr.com/apps/video/stewart.swf?photo_id='.$id, $width, $height);
 		break;
 		case 'metacafe':
-			$content = widget_video_buildEmbed('http://www.metacafe.com/fplayer/'.$id.'.swf', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.metacafe.com/fplayer/'.$id.'.swf', $width, $height);
 		break;
 		case 'liveleak':
-			$content = widget_video_buildEmbed('http://www.liveleak.com/player.swf?autostart=false&amp;token='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.liveleak.com/player.swf?autostart=false&amp;token='.$id, $width, $height);
 		break;
 		case 'revver':
 			$content = '<script src="http://flash.revver.com/player/1.0/player.js?mediaId:'.$id.';width:'.$width.';height:'.$height.'" type="text/javascript"></script>';
 		break;
 		case 'ifilm':
-			$content = widget_video_buildEmbed('http://www.ifilm.com/efp?flvbaseclip='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.ifilm.com/efp?flvbaseclip='.$id, $width, $height);
 		break;
 		case 'myspace':
-			$content = widget_video_buildEmbed('http://lads.myspace.com/videos/vplayer.swf?m='.$id.'&amp;v=2&amp;type=video', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://lads.myspace.com/videos/vplayer.swf?m='.$id.'&amp;v=2&amp;type=video', $width, $height);
 		break;
 		case 'bliptv':
-			$content = widget_video_buildEmbed('http://blip.tv/scripts/flash/showplayer.swf?autostart=false&#038;file=http%3A%2F%2Fcreationsnet%2Eblip%2Etv%2Ffile%2F'.$id.'%2F%3Fskin%3Drss%26sort%3Ddate&#038;fullscreenpage=http%3A%2F%2Fblip%2Etv%2Ffullscreen%2Ehtml&#038;fsreturnpage=http%3A%2F%2Fblip%2Etv%2Fexitfullscreen%2Ehtml&#038;showfsbutton=true&#038;brandlink=http%3A%2F%2Fcreationsnet%2Eblip%2Etv%2F&#038;brandname=cre%2Eations%2Enet&#038;showguidebutton=false&#038;showplayerpath=http%3A%2F%2Fblip%2Etv%2Fscripts%2Fflash%2Fshowplayer%2Eswf', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://blip.tv/scripts/flash/showplayer.swf?autostart=false&#038;file=http%3A%2F%2Fcreationsnet%2Eblip%2Etv%2Ffile%2F'.$id.'%2F%3Fskin%3Drss%26sort%3Ddate&#038;fullscreenpage=http%3A%2F%2Fblip%2Etv%2Ffullscreen%2Ehtml&#038;fsreturnpage=http%3A%2F%2Fblip%2Etv%2Fexitfullscreen%2Ehtml&#038;showfsbutton=true&#038;brandlink=http%3A%2F%2Fcreationsnet%2Eblip%2Etv%2F&#038;brandname=cre%2Eations%2Enet&#038;showguidebutton=false&#038;showplayerpath=http%3A%2F%2Fblip%2Etv%2Fscripts%2Fflash%2Fshowplayer%2Eswf', $width, $height);
 		break;
 		case 'collegehumor':
-			$content = widget_video_buildEmbed('http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id='.$id.'&amp;fullscreen=1', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.collegehumor.com/moogaloop/moogaloop.swf?clip_id='.$id.'&amp;fullscreen=1', $width, $height);
 		break;
 		case 'videojug':
-			$content = widget_video_buildEmbed('http://www.videojug.com/film/player?id='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.videojug.com/film/player?id='.$id, $width, $height);
 		break;
 		case 'godtube':
-			$content = widget_video_buildEmbed('http://godtube.com/flvplayer.swf?viewkey='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://godtube.com/flvplayer.swf?viewkey='.$id, $width, $height);
 		break;
 		case 'veoh':
-			$content = widget_video_buildEmbed('http://www.veoh.com/videodetails2.swf?player=videodetailsembedded&amp;type=v&amp;permalinkId='.$id.'&amp;id=anonymous', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.veoh.com/videodetails2.swf?player=videodetailsembedded&amp;type=v&amp;permalinkId='.$id.'&amp;id=anonymous', $width, $height);
 		break;
 		case 'break':
-			$content = widget_video_buildEmbed('http://embed.break.com/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://embed.break.com/'.$id, $width, $height);
 		break;
 		case 'movieweb':
-			$content = widget_video_buildEmbed('http://www.movieweb.com/v/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.movieweb.com/v/'.$id, $width, $height);
 		break;
 		case 'jaycut':
-			$content = widget_video_buildEmbed('http://jaycut.se/flash/preview.swf?file=http://jaycut.se/mixes/send_preview/'.$id.'&amp;type=flv&amp;autostart=false', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://jaycut.se/flash/preview.swf?file=http://jaycut.se/mixes/send_preview/'.$id.'&amp;type=flv&amp;autostart=false', $width, $height);
 		break;
 		case 'myvideo':
-			$content = widget_video_buildEmbed('http://www.myvideo.de/movie/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.myvideo.de/movie/'.$id, $width, $height);
 		break;
 		case 'clipfish':
-			$content = widget_video_buildEmbed('http://www.clipfish.de/videoplayer.swf?as=0&videoid='.$id.'=&r=1&c=0067B3&coop=myspace', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.clipfish.de/videoplayer.swf?as=0&videoid='.$id.'=&r=1&c=0067B3&coop=myspace', $width, $height);
 		break;
 		case 'viddler':
-			$content = widget_video_buildEmbed('http://www.viddler.com/player/'.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.viddler.com/player/'.$id, $width, $height);
 		break;
 		case 'gametrailers':
-			$content = widget_video_buildEmbed('http://www.gametrailers.com/remote_wrap.php?mid='.$id, $width, $height);
+			$content = wp_widget_video_buildEmbed('http://www.gametrailers.com/remote_wrap.php?mid='.$id, $width, $height);
 		break;
 		case 'snotr':
-			$content = widget_video_buildEmbed('http://videos.snotr.com/player.swf?video='.$id.'&amp;embedded=true&amp;autoplay=false', $width, $height);
+			$content = wp_widget_video_buildEmbed('http://videos.snotr.com/player.swf?video='.$id.'&amp;embedded=true&amp;autoplay=false', $width, $height);
 		break;
-        case 'taratata':
-            $content = widget_video_buildEmbed('http://video.mytaratata.com/p/fr/'.$id.'.html', $width, $height);
-        break;		
-		case 'quicktime':
+                case 'taratata':
+                        $content = wp_widget_video_buildEmbed('http://video.mytaratata.com/p/fr/'.$id.'.html', $width, $height);
+                break;		
+                case 'espn':
+                        $content = wp_widget_video_buildEmbed('http://sports.espn.go.com/broadband/player.swf?mediaId='.$id, $width, $height);
+                break;
+                case 'mtvmusic':
+                        $content = wp_widget_video_buildEmbed('http://media.mtvnservices.com/mgid:uma:video:mtv.com:'.$id, $width, $height); 
+                break;
+		case 'quicktime':			
 			$content='<object classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" codebase="http://www.apple.com/qtactivex/qtplugin.cab" width="'.$width.'" height="'.$height.'">';
 			$content.='<param name="src" value="'.$id.'" />';
 			$content.='<param name="controller" value="true" />';
 			$content.='<param name="autoplay" value="false" />';
 			$content.='<param name="scale" value="aspect" />';
+			$content.='<param name="pluginspage" value="/quicktime/download/" />';
 			$content.='<object type="video/quicktime" data="'.$id.'" width="'.$width.'" height="'.$height.'">'."\n";
 			$content.='<param name="autoplay" value="false" />';
 		 	$content.='<param name="controller" value="true" />';
 			$content.='<param name="scale" value="aspect" />';
 			$content.='</object>';
-			$content.='</object>';
+			$content.='</object>';			
 		break;
 		case 'windowsmedia':
 			$content='<object classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" id="player" width="'.$width.'" height="'.$height.'">'."\n";
@@ -166,6 +179,9 @@ function widget_video($args, $widget_args = 1) {
 			$content.='</object>'."\n";
 			$content.='<!--<![endif]-->'."\n";
 			$content.='</object>'."\n";
+		break;			
+		case 'schooltube' :
+                        $content = wp_widget_video_buildEmbed('http://www.schooltube.com/v/'.$id, $width, $height); 
 		break;
 	}
 	
@@ -176,10 +192,10 @@ function widget_video($args, $widget_args = 1) {
 	echo $textbefore;
 	echo $content;
 	echo $textafter;
-	echo $after_widget;
+	echo $after_widget;	
 }
 
-function widget_video_buildEmbed($code, $width, $height)
+function wp_widget_video_buildEmbed($code, $width, $height)
 {
 	$object = '<object type="application/x-shockwave-flash" width="'.$width.'" height="'.$height.'" data="'.$code.'">';
 	$object .= '<param name="movie" value="'.$code.'" />';
@@ -189,7 +205,7 @@ function widget_video_buildEmbed($code, $width, $height)
 	return $object;
 }
 
-function widget_video_control($widget_args) 
+function wp_widget_video_control($widget_args) 
 {
 	global $wp_registered_widgets;
 	static $updated = false;
@@ -238,11 +254,10 @@ function widget_video_control($widget_args)
 	}
 
 	if ( -1 == $number ) {
-		$title = 'my video';
+		$title = 'video title';
 		$source = 'youtube';
-		$id = 'FsrN3qxX2Yw';
-		$idlist = 'youtube:FsrN3qxX2Yw;
-dailymotion:x2pjo1';
+		$id = '';
+		$idlist = '';
 		$width = '200';
 		$height = '165';
 		$number = '%i%';
@@ -256,8 +271,8 @@ dailymotion:x2pjo1';
 		$idlist = $options[$number]['idlist'];
 		$width = $options[$number]['width'];
 		$height = $options[$number]['height'];
-		$textbefore = $options[$number]['textbefore'];
-		$textafter = $options[$number]['textafter'];
+		$textbefore = str_replace('"', "'", $options[$number]['textbefore']);
+		$textafter = str_replace('"', "'", $options[$number]['textafter']);
 	}
 ?>
 		<p>
@@ -310,9 +325,13 @@ dailymotion:x2pjo1';
 			$sources['gametrailers']='Gametrailers';
 			$sources['snotr']='Snotr';			
 			$sources['taratata']='Taratata';			
+			$sources['espn']='Espn';			
+			$sources['mtvmusic']='Mtv Music';			
 			$sources['quicktime']='Quicktime';
 			$sources['windowsmedia']='Windows media player';
-		
+			$sources['schooltube']='SchoolTube';
+                        ksort($sources);
+                        
 	 		foreach ($sources as $key => $value)
 			{
 				$selected = '';
@@ -339,12 +358,7 @@ dailymotion:x2pjo1';
 <?php
 }
 
-function widget_video_register() {
-
-	// Check for the required API functions
-	if ( !function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control') )
-		return;
-
+function wp_widget_video_register() {
 	if ( !$options = get_option('widget_video') )
 		$options = array();
 	$widget_ops = array('classname' => 'widget_video', 'description' => __('Adds YouTube/Dailymotion/Google... video'));
@@ -353,24 +367,34 @@ function widget_video_register() {
 
 	$id = false;
 	foreach ( array_keys($options) as $o ) {
+
 		// Old widgets can have null values for some reason
-		if ( !isset($options[$o]['title']) || !isset($options[$o]['source'])  || !isset($options[$o]['id'])  || !isset($options[$o]['idlist'])  || !isset($options[$o]['width'])  || !isset($options[$o]['height'])  || !isset($options[$o]['textbefore'])  || !isset($options[$o]['textafter']) )
+		if (    !isset($options[$o]['title']) ||
+                        !isset($options[$o]['source'])  ||
+                        !isset($options[$o]['id'])  ||
+                        !isset($options[$o]['idlist'])  ||
+                        !isset($options[$o]['width'])  ||
+                        !isset($options[$o]['height'])  ||
+                        !isset($options[$o]['textbefore'])  ||
+                        !isset($options[$o]['textafter']) )
 		{
-			//continue;		
-		}
+                        continue;		
+		}                        
+
 		$id = "video-$o"; // Never never never translate an id
-		wp_register_sidebar_widget($id, $name, 'widget_video', $widget_ops, array( 'number' => $o ));
-		wp_register_widget_control($id, $name, 'widget_video_control', $control_ops, array( 'number' => $o ));
+		wp_register_sidebar_widget($id, $name, 'wp_widget_video', $widget_ops, array( 'number' => $o ));
+		wp_register_widget_control($id, $name, 'wp_widget_video_control', $control_ops, array( 'number' => $o ));
 	}
 	
 	// If there are none, we register the widget's existance with a generic template
-	if ( !$id ) {
-		wp_register_sidebar_widget( 'video-1', $name, 'widget_video', $widget_ops, array( 'number' => -1 ) );
-		wp_register_widget_control( 'video-1', $name, 'widget_video_control', $control_ops, array( 'number' => -1 ) );
+         if ( !$id ) {
+		wp_register_sidebar_widget( 'video-1', $name, 'wp_widget_video', $widget_ops, array( 'number' => -1 ) );
+		wp_register_widget_control( 'video-1', $name, 'wp_widget_video_control', $control_ops, array( 'number' => -1 ) );
 	}
+        
 	
 }
 
-add_action( 'widgets_init', 'widget_video_register' );
+add_action( 'widgets_init', 'wp_widget_video_register' );
 
 ?>
